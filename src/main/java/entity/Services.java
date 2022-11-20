@@ -1,12 +1,30 @@
 package entity;
 
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
+@Entity
+@Table(name = "services")
 public class Services {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_service")
     private int ID_service;
+    @Column(name = "name")
     private Service name;
+    @Column(name = "request_time")
     private int request_time;
+    @Column(name = "cost")
     private int cost;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.PERSIST})
+    @JoinTable(
+            name="masters_services",
+            joinColumns = @JoinColumn(name = "service_id"),
+            inverseJoinColumns = @JoinColumn(name = "master_id")
+    )
+    private Set<Master> masters;
 
     public Services(Service name, int request_time, int cost) {
         this.name = name;

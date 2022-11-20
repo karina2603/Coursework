@@ -1,17 +1,31 @@
 package entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "records")
 public class Record {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_record")
     private int ID_record;
-    private int ID_service;
-    private int ID_master;
+    @Column(name = "id_service")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},)
+    @JoinColumn(name = "record_service")
+    private Service service;
+    @Column(name = "id_master")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
+            mappedBy = "ID_master")
+    private Master master;
+    @Column(name = "date")
     private String date;
+    @Column(name = "time")
     private String time;
 
-    public Record(int ID_service, int ID_master, String date, String time) {
-        this.ID_service = ID_service;
-        this.ID_master = ID_master;
+    public Record(Service service, Master master, String date, String time) {
+        this.service = service;
+        this.master = master;
         this.date = date;
         this.time = time;
     }
@@ -27,20 +41,20 @@ public class Record {
         this.ID_record = ID_record;
     }
 
-    public int getID_service() {
-        return ID_service;
+    public Service getService() {
+        return service;
     }
 
-    public void setID_service(int ID_service) {
-        this.ID_service = ID_service;
+    public void setService(Service ID_service) {
+        this.service = ID_service;
     }
 
-    public int getID_master() {
-        return ID_master;
+    public Master getMaster() {
+        return master;
     }
 
-    public void setID_master(int ID_master) {
-        this.ID_master = ID_master;
+    public void setMaster(Master master) {
+        this.master = master;
     }
 
     public String getDate() {
@@ -64,11 +78,11 @@ public class Record {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Record record = (Record) o;
-        return ID_record == record.ID_record && ID_service == record.ID_service && ID_master == record.ID_master && Objects.equals(date, record.date) && Objects.equals(time, record.time);
+        return ID_record == record.ID_record && service == record.service && master == record.master && Objects.equals(date, record.date) && Objects.equals(time, record.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID_record, ID_service, ID_master, date, time);
+        return Objects.hash(ID_record, service, master, date, time);
     }
 }

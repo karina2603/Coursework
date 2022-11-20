@@ -1,16 +1,32 @@
 package entity;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "masters")
 public class Master {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OneToOne
+    @JoinColumn(name = "master_record")
     private int ID_master;
+    @Column(name = "name")
     private String name;
-    private List<Integer> ID_service;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+                    CascadeType.REFRESH, CascadeType.PERSIST})
+    @JoinTable(
+            name="masters_services",
+            joinColumns = @JoinColumn(name = "master_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<Services> services;
 
-    public Master(String name, List<Integer> ID_service) {
+    public Master(String name, List<Services> services) {
         this.name = name;
-        this.ID_service = ID_service;
+        this.services = services;
     }
 
     public Master() {
@@ -32,12 +48,12 @@ public class Master {
         this.name = name;
     }
 
-    public List<Integer> getID_service() {
-        return ID_service;
+    public List<Services> getServices() {
+        return services;
     }
 
-    public void setID_service(List<Integer> ID_service) {
-        this.ID_service = ID_service;
+    public void setServices(List<Services> services) {
+        this.services = services;
     }
 
     @Override
@@ -45,11 +61,11 @@ public class Master {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Master master = (Master) o;
-        return ID_master == master.ID_master && Objects.equals(name, master.name) && Objects.equals(ID_service, master.ID_service);
+        return ID_master == master.ID_master && Objects.equals(name, master.name) && Objects.equals(services, master.services);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID_master, name, ID_service);
+        return Objects.hash(ID_master, name, services);
     }
 }
