@@ -9,10 +9,19 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
     @Transient
-    @ManyToMany(mappedBy = "roles")
+//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+//            CascadeType.REFRESH, CascadeType.PERSIST})
+//    @JoinTable(
+//            name="user_role",
+//            joinColumns = @JoinColumn(name = "role_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
     private Set<User> users;
     public Role() {
     }
