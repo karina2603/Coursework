@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Beauty salon</h1>
+    </head>
+
+    <body>
+        <input type="button" value="Войти"
+               onclick="window.location.href='${}'"/>
+        <br></br>
+        <input type="button" value="Зарегестрироваться"
+               onclick="window.location.href='${}'"/>
+
+    </body>
+
+
+
+</html>

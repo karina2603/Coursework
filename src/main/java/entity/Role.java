@@ -14,14 +14,13 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Transient
-//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-//            CascadeType.REFRESH, CascadeType.PERSIST})
-//    @JoinTable(
-//            name="user_role",
-//            joinColumns = @JoinColumn(name = "role_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.REFRESH, CascadeType.PERSIST})
+    @JoinTable(
+            name="user_role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Set<User> users;
     public Role() {
     }

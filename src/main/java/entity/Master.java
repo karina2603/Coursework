@@ -9,8 +9,6 @@ import java.util.Objects;
 public class Master {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToOne
-    @JoinColumn(name = "master_record")
     private int ID_master;
     @Column(name = "name")
     private String name;
@@ -23,6 +21,9 @@ public class Master {
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
     private List<Services> services;
+//    @OneToMany
+//    @JoinColumn(name = "master_record")
+//    private List<Record> records;
 
     public Master(String name, List<Services> services) {
         this.name = name;

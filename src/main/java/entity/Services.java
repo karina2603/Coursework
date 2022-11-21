@@ -14,7 +14,7 @@ public class Services {
     @Column(name = "name")
     private Service name;
     @Column(name = "request_time")
-    private int request_time;
+    private double request_time;
     @Column(name = "cost")
     private int cost;
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
@@ -25,8 +25,12 @@ public class Services {
             inverseJoinColumns = @JoinColumn(name = "master_id")
     )
     private Set<Master> masters;
+//    @OneToMany(cascade = CascadeType.ALL,
+//            mappedBy = "service",
+//            fetch = FetchType.LAZY)
+//    private Set<Record> records;
 
-    public Services(Service name, int request_time, int cost) {
+    public Services(Service name, double request_time, int cost) {
         this.name = name;
         this.request_time = request_time;
         this.cost = cost;
@@ -51,11 +55,11 @@ public class Services {
         this.name = name;
     }
 
-    public int getRequest_time() {
+    public double getRequest_time() {
         return request_time;
     }
 
-    public void setRequest_time(int request_time) {
+    public void setRequest_time(double request_time) {
         this.request_time = request_time;
     }
 

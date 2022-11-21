@@ -10,20 +10,18 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_record")
     private int ID_record;
-    @Column(name = "id_service")
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},)
-    @JoinColumn(name = "record_service")
-    private Service service;
-    @Column(name = "id_master")
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},
-            mappedBy = "ID_master")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_id")
+    private Services service;
+    @Column(name = "master_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Master master;
     @Column(name = "date")
     private String date;
     @Column(name = "time")
     private String time;
 
-    public Record(Service service, Master master, String date, String time) {
+    public Record(Services service, Master master, String date, String time) {
         this.service = service;
         this.master = master;
         this.date = date;
@@ -41,11 +39,11 @@ public class Record {
         this.ID_record = ID_record;
     }
 
-    public Service getService() {
+    public Services getService() {
         return service;
     }
 
-    public void setService(Service ID_service) {
+    public void setService(Services ID_service) {
         this.service = ID_service;
     }
 
