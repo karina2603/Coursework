@@ -20,12 +20,15 @@ public class Record {
     private String date;
     @Column(name = "time")
     private String time;
+    @Column(name = "status")
+    private Status status;
 
     public Record(Services service, Master master, String date, String time) {
         this.service = service;
         this.master = master;
         this.date = date;
         this.time = time;
+        this.status = Status.Free;
     }
 
     public Record() {

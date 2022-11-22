@@ -9,6 +9,7 @@ import java.util.Objects;
 public class Master {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_master")
     private int ID_master;
     @Column(name = "name")
     private String name;

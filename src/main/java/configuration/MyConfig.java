@@ -31,13 +31,14 @@ public class MyConfig {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
             dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/beauty_salon?useSSL=false&amp");
+            dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/beauty_salon");
             dataSource.setUser("bestuser");
             dataSource.setPassword("bestuser");
         } catch (PropertyVetoException e) {
             throw new RuntimeException(e);
         }
-
+        //jdbc:mysql://127.0.0.1:3306/?user=bestuser
+        //?useSSL=false&amp
         return dataSource;
     }
 }
