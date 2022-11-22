@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity
@@ -13,15 +14,26 @@ public class Record {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "service_id")
     private Services service;
-    @Column(name = "master_id")
+    @JoinColumn(name = "master_id")
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     private Master master;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name = "date")
     private String date;
     @Column(name = "time")
     private String time;
     @Column(name = "status")
     private Status status;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Record(Services service, Master master, String date, String time) {
         this.service = service;

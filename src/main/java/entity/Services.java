@@ -1,6 +1,8 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,12 +26,18 @@ public class Services {
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "master_id")
     )
-    private Set<Master> masters;
+    private List<Master> masters;
 //    @OneToMany(cascade = CascadeType.ALL,
 //            mappedBy = "service",
 //            fetch = FetchType.LAZY)
 //    private Set<Record> records;
 
+    public void addMasterToService(Master master) {
+        if (masters == null) {
+            masters = new ArrayList<>();
+        }
+        masters.add(master);
+    }
     public Services(Service name, double request_time, int cost) {
         this.name = name;
         this.request_time = request_time;
@@ -69,6 +77,14 @@ public class Services {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public List<Master> getMasters() {
+        return masters;
+    }
+
+    public void setMasters(List<Master> masters) {
+        this.masters = masters;
     }
 
     @Override

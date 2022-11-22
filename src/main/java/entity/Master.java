@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +14,7 @@ public class Master {
     private int ID_master;
     @Column(name = "name")
     private String name;
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,
                     CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinTable(
             name="masters_services",
@@ -26,9 +26,18 @@ public class Master {
 //    @JoinColumn(name = "master_record")
 //    private List<Record> records;
 
+    public void addServiceToMaster(Services service) {
+        if (services == null) {
+            services = new ArrayList<>();
+        }
+        services.add(service);
+    }
     public Master(String name, List<Services> services) {
         this.name = name;
         this.services = services;
+    }
+    public Master(String name) {
+        this.name = name;
     }
 
     public Master() {

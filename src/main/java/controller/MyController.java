@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MyController {
 
-    @GetMapping("/")
-    public String
+//    @GetMapping("/")
+//    public String
 }
