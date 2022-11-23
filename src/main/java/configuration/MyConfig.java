@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "com")
 @EnableWebMvc
 public class MyConfig {
 
